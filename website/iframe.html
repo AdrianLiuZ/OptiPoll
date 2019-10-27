@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+	    <link rel="stylesheet" type="text/css" href="main.css">
+	</head>
+
+	<body>
+		<div class="header">
+			<p id="name">OptiPoll</p>
+			<p id="links">
+				<a href="index.html">|   Home   |</a>
+				<a class="active" href="iframe.html">|   Data Output   |</a>
+				<a href="iframe.html">|   Refresh   |</a>
+			</p>
+		</div>
+
+		<div id="entries"></div>
+
+		<div class="footer">
+			<p>SD Hacks 2019</p>
+		</div>
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+		<script type="text/javascript">
+			var API_URL = "https://s2ei85bkjg.execute-api.us-west-1.amazonaws.com/Production/entries"
+
+			$(document).ready(function(){
+				$.ajax({
+					type: "GET",
+					url: API_URL,
+
+					success: function(data){
+						$("#entries").html("");
+
+						data.Items.forEach(function(OptiRoll){
+							$("#entries").append("<p>" + OptiRoll.Name + "    |   Is Present: " + OptiRoll.isPresent +  "</p>");
+						})
+					}
+				});
+			});
+		</script>
+
+	</body>
+</html>
